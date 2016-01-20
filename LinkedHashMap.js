@@ -4,12 +4,7 @@ var LinkedHashMap = function () {
 };
 LinkedHashMap.prototype = {
     constructor: LinkedHashMap,
-    /**
-     * 判断是否存在
-     * @param {Object}
-     * @param {Object}
-     * @return {Boolean}
-     */
+    
     hs: function (key, value) {
         var key = key || null, value = value || null, me = this;
         if (key === null) {
@@ -27,11 +22,7 @@ LinkedHashMap.prototype = {
         }
         return false;
     },
-    /**
-     * 添加
-     * @param {Object}
-     * @param {Object}
-     */
+    
     ad: function (key, value) {
         var value = value || null;
         var key = key || null;
@@ -46,117 +37,16 @@ LinkedHashMap.prototype = {
             me.map[key] = value;
         }
     },
-    /**
-     * 删除
-     * @param {Object}
-     */
-    rm: function (key) {
-        var key = key || null;
-        var me = this;
-        if (key in me.map) {
-            delete me.map[key];
-            for (var i = 0; i < me.array.length; i++) {
-                if (me.array[i] === key) {
-                    me.array.splice(i, 1);
-                    break;
-                }
-            }
-        }
-    },
-    /**
-     * 从第一个删到找到的key
-     * @param {Object}
-     */
-    rmTill: function (key) {
-        var me = this, delIndex = -1;
-        for (var i = 0; i < me.array.length; i++) {
-            if (me.array[i] === key) {
-                delIndex = i;
-                break;
-            }
-        }
-        if (delIndex > -1) {
-            for (var i = 0; i <= delIndex; i++) {
-                delete me.map[me.array[i]];
-            }
-            me.array.splice(0, delIndex + 1);
-        }
-    },
-    /**
-     * 从找到的key开始，删除到结尾
-     * @param {Object}
-     */
-    rmFrom: function (key) {
-        var me = this;
-        for (var i = 0; i < me.array.length; i++) {
-            if (me.array[i] === key) {
-                delIndex = i;
-                break;
-            }
-        }
-        if (delIndex > -1) {
-            for (var i = delIndex; i < me.array.length; i++) {
-                delete me.map[me.array[i]];
-            }
-            me.array.splice(delIndex, me.array.length - delIndex);
-        }
-    },
-    /**
-     * 长度
-     * @return {Number}
-     */
-    size: function () {
-        return this.array.length;
-    },
-    /**
-     * 遍历
-     * @param {Function}
-     * @param {Object}
-     */
-    each: function (fn, scope) {
-        var me = this;
-        var scope = scope || window;
-        var fn = fn || null;
-        if (fn == null || typeof (fn) != "function") {
-            return;
-        }
-        for (var i = 0; i < me.array.length; i++) {
-            var key = me.array[i];
-            var value = me.map[key];
-            var re = fn.call(scope, key, value, i, me.array, me.map);
-            if (re == false) {
-                break;
-            }
-        }
-    },
-    /**
-     * get
-     * @param {Object}
-     * @return {Object}
-     */
+         
     get: function (key) {
         return this.map[key];
     },
-    /**
-     * 排序
-     * @param {Function}
-     * @return {Object}
-     */
-    sort: function (compare) {
-        var me = this;
-        me.array.sort(compare);
-    },
+    
     keys: function () {
         var keys = [];
-        for (var key in this._map) {
-            if (this._map.hasOwnProperty(key)) {
-                keys.push(key);
-            }
-        }
+        for(var i=0;i<this.array.length;i++)
+            keys.push(this.array[i]);
+        
         return keys;
     }
 };
-/**
- * @class $kit.SortMap
- * @extends LinkedHashMap
- */
